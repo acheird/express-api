@@ -7,6 +7,7 @@ const users = [
     { id: 3, name: "Charlie", role: "Editor" }
 ];
 
+// GET: Fetch all users
 router.get("/", (req, res) => {
     res.status(200).json(users);
 });
