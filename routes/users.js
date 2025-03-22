@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
     const { name, role } = req.body;
 
-    if (!name || !role ) {
+    if (!name || !role) {
         return res.status(400).json({ error: "Name and role are required" });
     }
 
@@ -28,36 +28,35 @@ router.post("/", (req, res) => {
 
     users.push(newUser);
     res.status(201).json(newUser);
-})
-
+});
 
 // PUT: Update a user by ID
 router.put("/:id", (req, res) => {
     const { id } = req.params;
     const { name, role } = req.body;
-    const user = users.find(u => u.id) === parseInt(id);
+    const user = users.find(u => u.id === parseInt(id));
 
-    if(!user){
+    if (!user) {
         return res.status(404).json({ error: "User not found" });
-
-        user.name = name || user.name;
-        user.role = role || user.role;
-
-        res.status(200).json(user);
     }
+
+    user.name = name || user.name;
+    user.role = role || user.role;
+
+    res.status(200).json(user);
 });
 
 // DELETE: Remove a user by ID
-router.delete("/:id", (req,res) => {
+router.delete("/:id", (req, res) => {
     const { id } = req.params;
     const userIndex = users.findIndex(u => u.id === parseInt(id));
 
-    if(userIndex === -1){
-        return res.status(404).json({error: "User not found"});
+    if (userIndex === -1) {
+        return res.status(404).json({ error: "User not found" });
     }
 
-    const deleteUser = users.splice(user, 1);
-    res.status(200).json({ message: "User deleted", user:deleteUser});
+    const deletedUser = users.splice(userIndex, 1);
+    res.status(200).json({ message: "User deleted", user: deletedUser[0] });
 });
 
 module.exports = router;
