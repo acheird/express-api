@@ -47,4 +47,17 @@ router.put("/:id", (req, res) => {
     }
 });
 
+// DELETE: Remove a user by ID
+router.delete("/:id", (req,res) => {
+    const { id } = req.params;
+    const userIndex = users.findIndex(u => u.id === parseInt(id));
+
+    if(userIndex === -1){
+        return res.status(404).json({error: "User not found"});
+    }
+
+    const deleteUser = users.splice(user, 1);
+    res.status(200).json({ message: "User deleted", user:deleteUser});
+});
+
 module.exports = router;
