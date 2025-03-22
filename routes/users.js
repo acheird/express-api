@@ -44,7 +44,7 @@ router.put("/:id", (req, res) => {
         user.role = role || user.role;
 
         res.status(200).json(user);
-    };
-})
+    }
+});
 
 module.exports = router;
